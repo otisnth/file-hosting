@@ -11,7 +11,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
         postData('/admin/api/user/auth', fData, {})
             .then((data) => {
-                console.log(data);
+                window.location.href = '/'; // переадресация на главную
+            })
+            .catch((error) => {
+                let errorMessege = getCoocieError();
+                errorBlock.textContent = errorMessege ? errorMessege : 'Произошла непредвиденная ошибка';
             })
     })
 })
