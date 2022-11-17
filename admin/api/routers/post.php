@@ -29,9 +29,9 @@ function addPost($fData) {
                     
         $data = $pdo->prepare($query);
         $data->execute([
-            'discipline' => (int) $fdata['add-post-discipline'],
-            'title' => filter_var(trim($fdata['add-post-title']), FILTER_SANITIZE_STRING),
-            'text' => filter_var(trim($fdata['add-post-text']), FILTER_SANITIZE_STRING) ,
+            'discipline' => (int) $fData['add-post-discipline'],
+            'title' => filter_var(trim($fData['add-post-title']), FILTER_SANITIZE_STRING),
+            'text' => filter_var(trim($fData['add-post-text']), FILTER_SANITIZE_STRING) ,
             'user_id' => $_SESSION['user_id']
         ]);
     } catch (PDOException $e) {
