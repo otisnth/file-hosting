@@ -54,7 +54,7 @@ function addUser($fData) {
             $user['photo'] = \Helpers\files\loadfile('photo')[0];
         }
 
-        $query = 'INSERT INTO users (users_email, users_name, user_photo, users_password) 
+        $query = 'INSERT INTO users (users_email, users_name, users_photo, users_password) 
         VALUES (:email, :name, :photo, :password)';
         
         $data = $pdo->prepare($query);

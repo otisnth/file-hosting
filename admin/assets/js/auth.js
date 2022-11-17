@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 window.location.href = '/'; // переадресация на главную
             })
             .catch((error) => {
-                let errorMessege = getCoocieError();
+                let errorMessege = getCookieError();
                 errorBlock.textContent = errorMessege ? errorMessege : 'Произошла непредвиденная ошибка';
             })
     })
