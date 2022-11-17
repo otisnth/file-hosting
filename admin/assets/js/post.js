@@ -40,5 +40,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 let errorMessege = getCookieError();
                 errorBlock.textContent = errorMessege ? errorMessege : 'Произошла непредвиденная ошибка';
             })
+
     })
 })

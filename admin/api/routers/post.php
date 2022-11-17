@@ -7,6 +7,12 @@ function route($data) {
         echo json_encode(addPost($data['formData']));
         exit;
     }
+    
+    // GET /post
+    if ($data['method'] === 'GET' && count($data['urlData']) === 1) {      
+        echo json_encode(getPost());
+        exit;
+    }
 
     // Если ни один роутер не отработал
     \Helpers\query\throwHttpError('invalid_parameters', 'invalid parameters');
@@ -65,4 +71,37 @@ function addPost($fData) {
     }
 
     return ['id' => $postID];
+}
+
+function getPost() {
+    try{
+        $pdo = \Helpers\query\connectDB();
+    } catch (PDOException $e) {
+        \Helpers\query\throwHttpError('database error connect', $e->getMessage());
+        exit;
+    }
+
+    try {
+        $query = 'SELECT * FROM posts WHERE users_id = :user_id ORDER BY posts_date DESC';
+
+        $data = $pdo->prepare($query);
+        $data->execute(['user_id' => $_SESSION['user_id']]);
+    } catch (PDOException $e) {
+        \Helpers\query\throwHttpError('query error', $e->getMessage());
+        exit;
+    }
+
+    $result = [];
+
+    while($row = $data->fetch(PDO::FETCH_LAZY)) {
+        $result[] = [
+            'text' => $row->posts_text,
+            'date' => $row->posts_date,
+            'title' => $row->posts_title,
+            'discipline' => $row->disciplines_id,
+            'id' => $row->posts_id,
+        ];
+    }
+
+    return $result;
 }
