@@ -3,7 +3,7 @@ header('Access-Control-Allow-Methods: GET, POST');
 
 // Подключаем библиотеки и хелперы
 include_once 'helpers/query.php';
-// include_once 'helpers/files.php';
+include_once 'helpers/files.php';
 
 session_start();
 

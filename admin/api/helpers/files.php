@@ -91,7 +91,7 @@ function loadfile($field){
         }
 
         return $topath;
-    }
+    } else return null;
 }
 
 function translitFileName($str){

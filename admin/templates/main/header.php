@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,3 +12,10 @@
     <link rel="stylesheet" href="style.css">
     <script src="/admin/assets/js/main.js"></script>
 </head>
+ 
+<header>
+    <img src="<?=$_SESSION['user']['photo']?>" alt="avatar">
+    <a href="mailto:<?=$_SESSION['user']['email']?>"><?=$_SESSION['user']['email']?></a>
+    <p><?=$_SESSION['user']['name']?></p>
+</header>
+
