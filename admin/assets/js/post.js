@@ -35,6 +35,7 @@ window.addEventListener('DOMContentLoaded', () => {
         postData('/admin/api/post', fData, {})
             .then((data) => {
                 // window.location.href = '/'; // переадресация на главную
+                errorBlock.textContent = 'Пост добавлен';
             })
             .catch((error) => {
                 let errorMessege = getCookieError();

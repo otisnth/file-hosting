@@ -19,6 +19,15 @@ function route($data) {
 }
 
 function addPost($fData) {
+    if ($fData['add-post-discipline'] == '' 
+        || $fData['add-post-title'] == '' 
+        || $fData['add-post-text'] == '' 
+        || $_FILES['add-post-file']['error'] != 0
+    ){
+        \Helpers\query\throwHttpError('400 bad data', 'empty data fields');
+        exit;
+    }
+
     try{
         $pdo = \Helpers\query\connectDB();
     } catch (PDOException $e) {
