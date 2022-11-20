@@ -1,5 +1,9 @@
 <?php
     session_start();
+
+    if (isset($_GET['logout']) && $_GET['logout']){
+        $_SESSION = [];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -12,10 +16,14 @@
     <link rel="stylesheet" href="style.css">
     <script src="/admin/assets/js/main.js"></script>
 </head>
- 
-<header>
-    <img src="<?=$_SESSION['user']['photo']?>" alt="avatar">
-    <a href="mailto:<?=$_SESSION['user']['email']?>"><?=$_SESSION['user']['email']?></a>
-    <p><?=$_SESSION['user']['name']?></p>
-</header>
 
+<?php 
+    if (isset($_SESSION['user'])) {
+    echo '<header>
+    <img src="' . $_SESSION['user']['photo'] . '" alt="avatar">
+    <a href="mailto:' . $_SESSION['user']['email'] . '">' . $_SESSION['user']['email'] . '</a>
+    <p>' . $_SESSION['user']['name'] . '</p>
+    <a href="?logout=true">Выход</a>
+    </header>';
+    }
+?>

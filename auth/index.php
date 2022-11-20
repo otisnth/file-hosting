@@ -7,7 +7,7 @@
     <form action="#" method="post" class="form-auth">
         <input type="email" name="email" require>
         <input type="password" name="password" require pattern="[a-zA-Z0-9\-]+">
-        <button type="submit">Зарегистрироваться</button>
+        <button type="submit">Войти</button>
         <div class="error-block"></div>
     </form>
     <script src="/admin/assets/js/auth.js"></script>
