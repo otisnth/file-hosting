@@ -14,6 +14,12 @@ function route($data) {
         exit;
     }
 
+    // GET /post/random
+    if ($data['method'] === 'GET' && count($data['urlData']) === 2 && $data['urlData'][1] == 'random') {      
+        echo json_encode(getPost($data['urlData'][1]));
+        exit;
+    }
+
     // Если ни один роутер не отработал
     \Helpers\query\throwHttpError('invalid_parameters', 'invalid parameters');
 }
@@ -82,7 +88,7 @@ function addPost($fData) {
     return ['id' => $postID];
 }
 
-function getPost() {
+function getPost($check = '') {
     try{
         $pdo = \Helpers\query\connectDB();
     } catch (PDOException $e) {
@@ -91,7 +97,13 @@ function getPost() {
     }
 
     try {
-        $query = 'SELECT * FROM posts WHERE users_id = :user_id ORDER BY posts_date DESC';
+        $query = 'SELECT * FROM posts';
+
+        if ($check) {
+            $query = $query . 'ORDER BY random() LIMIT 10';
+        } else {
+            $query = $query . 'WHERE users_id = :user_id ORDER BY posts_date DESC';
+        }
 
         $data = $pdo->prepare($query);
         $data->execute(['user_id' => $_SESSION['user_id']]);

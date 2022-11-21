@@ -8,11 +8,17 @@ function route($data) {
         exit;
     }
 
+    // GET /discipline/random
+    if ($data['method'] === 'GET' && count($data['urlData']) === 2 && $data['urlData'][1] == 'random') {      
+        echo json_encode(getDiscipline($data['urlData'][1]));
+        exit;
+    }
+
     // Если ни один роутер не отработал
     \Helpers\query\throwHttpError('invalid_parameters', 'invalid parameters');
 }
 
-function getDiscipline() {
+function getDiscipline($check = '') {
     try{
         $pdo = \Helpers\query\connectDB();
     } catch (PDOException $e) {
@@ -21,7 +27,13 @@ function getDiscipline() {
     }
 
     try {
-        $query = 'SELECT * FROM disciplines ORDER BY disciplines_name ASC';
+        $query = 'SELECT * FROM disciplines';
+
+        if ($check){
+            $query = $query . 'ORDER BY random() LIMIT 8';
+        } else {
+            $query = $query . 'ORDER BY disciplines_name ASC';
+        }
 
         $data = $pdo->prepare($query);
         $data->execute();
